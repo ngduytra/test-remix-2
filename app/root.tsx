@@ -8,7 +8,6 @@ import {
 import { useEffect } from 'react'
 import parse from 'html-react-parser'
 import type { LinksFunction, MetaFunction } from '@remix-run/node'
-import { sdk } from '@farcaster/miniapp-sdk'
 
 import AppLayout from '@/components/app-layout'
 
@@ -129,7 +128,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   useEffect(() => {
-    sdk.actions.ready()
+    // Only run on client side to avoid server-side import issues
+    if (typeof window !== 'undefined') {
+      import('@farcaster/miniapp-sdk').then((sdk) => {
+        sdk.default.actions.ready()
+      })
+    }
   }, [])
 
   return (
