@@ -10,9 +10,9 @@
   "miniapp": {
     "version": "1",
     "name": "Dopamint",
-    "homeUrl": "https://66f0b92b8d5c.ngrok-free.app",
-    "iconUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
-    "splashImageUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "homeUrl": "https://test-remix-2.vercel.app",
+    "iconUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
+    "splashImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://ex.co/api/webhook",
     "subtitle": "Your AI Companion",
@@ -24,11 +24,11 @@
     ],
     "primaryCategory": "finance",
     "tags": ["finance"],
-    "heroImageUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "heroImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
     "tagline": "Save instantly",
     "ogTitle": "Dopamint | The 1st AI Prompt-to-NFT Marketplace on Base",
     "ogDescription": "Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX",
-    "ogImageUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "ogImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
     "noindex": true
   }
 }

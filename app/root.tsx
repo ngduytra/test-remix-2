@@ -88,15 +88,15 @@ export async function generateMetadata() {
     other: {
       'fc:miniapp': JSON.stringify({
         version: 'next',
-        imageUrl: 'https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif',
+        imageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
         button: {
           title: `Dopamint AI App`,
           action: {
             type: 'launch_miniapp',
             name: 'Dopamint AI App',
-            url: 'https://66f0b92b8d5c.ngrok-free.app',
+            url: 'https://test-remix-2.vercel.app',
             splashImageUrl:
-              'https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif',
+              'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
             splashBackgroundColor: '#000000',
           },
         },
