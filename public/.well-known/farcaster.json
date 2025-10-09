@@ -1,0 +1,34 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEzNjkxODAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhDMEZFRjg4MjlBMzlCNTE1MUY2NDMwNzgzMGQzM2UzMDk0MGU0YTU4In0",
+    "payload": "eyJkb21haW4iOiJjODc5MzU3ZWJhY2Eubmdyb2stZnJlZS5hcHAifQ",
+    "signature": "MHg3MzhhZjgwNDIzN2E4Mzk2OTlkMjIyNzUwNjlhMDlkYWIxOTcyZmE5ZjcyOWU4NWRjNzEyZGMwYzYyNTY2MjFjNjcyNzU4ZmFlYzc3NmViNTdiYzhjZTVlZWFkOWFlNGQwZmJjYTc3ZTAzNTc2YTIwNDdiNTA2YjE0NWNjNWZiNjFj"
+  },
+  "baseBuilder": {
+    "allowedAddresses": ["0x865260E7825C13fFB62E8127b1015Da670205502"]
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Dopamint",
+    "homeUrl": "https://66f0b92b8d5c.ngrok-free.app",
+    "iconUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "splashImageUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "splashBackgroundColor": "#000000",
+    "webhookUrl": "https://ex.co/api/webhook",
+    "subtitle": "Your AI Companion",
+    "description": "Dopamint is an AI-powered platform that helps you manage your mental health and well-being. With Dopamint, you can track your mood, set goals, and access personalized resources to improve your mental health.",
+    "screenshotUrls": [
+      "https://ex.co/s1.png",
+      "https://ex.co/s2.png",
+      "https://ex.co/s3.png"
+    ],
+    "primaryCategory": "finance",
+    "tags": ["finance"],
+    "heroImageUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "tagline": "Save instantly",
+    "ogTitle": "Dopamint | The 1st AI Prompt-to-NFT Marketplace on Base",
+    "ogDescription": "Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX",
+    "ogImageUrl": "https://66f0b92b8d5c.ngrok-free.app/images/prompts-logo.gif",
+    "noindex": true
+  }
+}
