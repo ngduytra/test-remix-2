@@ -42,6 +42,55 @@ export const loader = async () => {
     },
   }
 
+  const manifestProduction = {
+    accountAssociation: {
+      header:
+        'eyJmaWQiOjEzNjkxODAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhDMEZFRjg4MjlBMzlCNTE1MUY2NDMwNzgzMGQzM2UzMDk0MGU0YTU4In0',
+      payload: 'eyJkb21haW4iOiJ0ZXN0LXJlbWl4LTIudmVyY2VsLmFwcCJ9',
+      signature:
+        'MHhjOTdmZWY3Yjg3OTMwMzk2YjJjODZkNmY4NzM3OTgxNDU2YzM5NWJmZGMwYjIxZjc1ZTgxYzA1ZmQxNzMxMTY5NjVjYzNiODA2MDI3Y2Q1MDk0NDE3Y2Y4ZDVkZWE1ZTI1NDVhYjU0Y2EwOWYzMDI0ZDZjMjhiZTk0OWRhOTZhOTFj',
+    },
+    baseBuilder: {
+      allowedAddresses: [
+        '0xAcE1616Add1E71A4587396d2c321B72f2745d32a',
+        '0x3c8c6d894B832AF5a3C2f57b978e05caB0bdB586',
+      ],
+    },
+    miniapp: {
+      version: '1',
+      name: 'Dopamint from api production',
+      homeUrl: 'https://test-remix-2.vercel.app/',
+      imageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.pn',
+      buttonTitle: '🚀 Launch',
+      iconUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
+      splashImageUrl:
+        'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
+      splashBackgroundColor: '#000000',
+
+      subtitle: 'Your AI Companion',
+      description: 'Dopamint is an AI-powered pto improve your mental health.',
+      primaryCategory: 'finance',
+      tags: ['finance'],
+      heroImageUrl:
+        'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
+      tagline: 'Save instantly',
+      ogTitle: 'Dopamint',
+      ogDescription: 'Think Dopamint as CapCut meets Pump.fun. Prompt NFT',
+      ogImageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
+      castShareUrl: 'https://test-remix-2.vercel.app',
+      canonicalDomain: 'test-remix-2.vercel.app',
+    },
+  }
+
+  if (import.meta.env.VITE_ENV === 'production') {
+    return data(manifestProduction, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+      },
+    })
+  }
+
   return data(manifest, {
     headers: {
       'Content-Type': 'application/json',
