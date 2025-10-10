@@ -7,7 +7,7 @@ import {
 } from '@remix-run/react'
 import { useEffect } from 'react'
 import parse from 'html-react-parser'
-import type { LinksFunction, MetaFunction } from '@remix-run/node'
+import type { LinksFunction } from '@remix-run/node'
 
 import AppLayout from '@/components/app-layout'
 
@@ -89,6 +89,7 @@ export async function generateMetadata() {
       'fc:miniapp': JSON.stringify({
         version: 'next',
         imageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
+        title: 'Dopamint | Test version ',
         button: {
           title: `Dopamint AI App`,
           action: {
