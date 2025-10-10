@@ -13,18 +13,13 @@
   "miniapp": {
     "version": "1",
     "name": "Dopamint",
-    "homeUrl": "https://test-remix-2.vercel.app",
+    "homeUrl": "https://test-remix-2.vercel.app/",
     "iconUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
     "splashImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
     "splashBackgroundColor": "#000000",
-    "webhookUrl": "https://ex.co/api/webhook",
+
     "subtitle": "Your AI Companion",
     "description": "Dopamint is an AI-powered pto improve your mental health.",
-    "screenshotUrls": [
-      "https://ex.co/s1.png",
-      "https://ex.co/s2.png",
-      "https://ex.co/s3.png"
-    ],
     "primaryCategory": "finance",
     "tags": ["finance"],
     "heroImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
@@ -32,7 +27,7 @@
     "ogTitle": "Dopamint",
     "ogDescription": "Think Dopamint as CapCut meets Pump.fun. Prompt NFT",
     "ogImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
-    "noindex": false,
-    "castShareUrl": "https://test-remix-2.vercel.app"
+    "castShareUrl": "https://test-remix-2.vercel.app",
+    "canonicalDomain": "test-remix-2.vercel.app"
   }
 }
