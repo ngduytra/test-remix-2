@@ -33,55 +33,55 @@ export const links: LinksFunction = () => [
   },
 ]
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: 'Dopamint | The 1st AI ' },
-    {
-      name: 'description',
-      content:
-        'Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX',
-    },
-    {
-      name: 'og:title',
-      content: 'Dopamint | The 1st AI OG',
-    },
-    {
-      name: 'og:image',
-      content: `${
-        import.meta.env.VITE_DOPAMINT_DOMAIN
-      }/images/dopamint-thumbnail.png`,
-    },
-    {
-      name: 'og:description',
-      content:
-        'Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX',
-    },
-    {
-      name: 'twitter:card',
-      content: 'summary_large_image',
-    },
-    {
-      name: 'twitter:title',
-      content: 'Dopamint | The 1st AI prompt-to-NFT Marketplace on Base',
-    },
-    {
-      name: 'twitter:description',
-      content:
-        'Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX',
-    },
-    {
-      name: 'twitter:image',
-      content: `${
-        import.meta.env.VITE_DOPAMINT_DOMAIN
-      }/images/dopamint-thumbnail.png`,
-    },
-    {
-      name: 'keywords',
-      content:
-        'Dopamint, AI, NFT, Marketplace, Base, AncientX, Prompt NFTs, Liquid bonding curves',
-    },
-  ]
-}
+// export const meta: MetaFunction = () => {
+//   return [
+//     { title: 'Dopamint | The 1st AI ' },
+//     {
+//       name: 'description',
+//       content:
+//         'Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX',
+//     },
+//     {
+//       name: 'og:title',
+//       content: 'Dopamint | The 1st AI OG',
+//     },
+//     {
+//       name: 'og:image',
+//       content: `${
+//         import.meta.env.VITE_DOPAMINT_DOMAIN
+//       }/images/dopamint-thumbnail.png`,
+//     },
+//     {
+//       name: 'og:description',
+//       content:
+//         'Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX',
+//     },
+//     {
+//       name: 'twitter:card',
+//       content: 'summary_large_image',
+//     },
+//     {
+//       name: 'twitter:title',
+//       content: 'Dopamint | The 1st AI prompt-to-NFT Marketplace on Base',
+//     },
+//     {
+//       name: 'twitter:description',
+//       content:
+//         'Think Dopamint as CapCut meets Pump.fun. Prompt NFTs, mint and burn TOGETHER on liquid bonding curves on Base, by AncientX',
+//     },
+//     {
+//       name: 'twitter:image',
+//       content: `${
+//         import.meta.env.VITE_DOPAMINT_DOMAIN
+//       }/images/dopamint-thumbnail.png`,
+//     },
+//     {
+//       name: 'keywords',
+//       content:
+//         'Dopamint, AI, NFT, Marketplace, Base, AncientX, Prompt NFTs, Liquid bonding curves',
+//     },
+//   ]
+// }
 
 export async function generateMetadata() {
   return {
