@@ -32,6 +32,7 @@
     "ogTitle": "Dopamint",
     "ogDescription": "Think Dopamint as CapCut meets Pump.fun. Prompt NFT",
     "ogImageUrl": "https://test-remix-2.vercel.app/dopamint-text-logo-dark.png",
-    "noindex": false
+    "noindex": false,
+    "castShareUrl": "https://test-remix-2.vercel.app"
   }
 }
