@@ -60,7 +60,7 @@ export const loader = async () => {
       version: '1',
       name: 'Dopamint from api production',
       homeUrl: 'https://test-remix-2.vercel.app/',
-      imageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.pn',
+      imageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
       buttonTitle: '🚀 Launch',
       iconUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
       splashImageUrl:
