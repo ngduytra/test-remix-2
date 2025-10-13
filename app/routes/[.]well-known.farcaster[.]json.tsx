@@ -56,7 +56,7 @@ export const loader = async () => {
     },
     miniapp: {
       version: '1',
-      name: 'Dopamint from api production',
+      name: 'Dopamint production',
       homeUrl: 'https://test-remix-2.vercel.app/',
       imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
       buttonTitle: '🚀 Launch',
