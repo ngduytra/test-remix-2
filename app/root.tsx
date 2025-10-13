@@ -86,7 +86,7 @@ export const meta: MetaFunction = () => {
       property: 'fc:miniapp',
       content: JSON.stringify({
         version: 'next',
-        imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
+        imageUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
         button: {
           title: `Join the Dapamint`,
           action: {
