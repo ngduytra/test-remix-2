@@ -86,11 +86,28 @@ export const meta: MetaFunction = () => {
       property: 'fc:miniapp',
       content: JSON.stringify({
         version: 'next',
-        imageUrl: 'https://test-remix-2.vercel.app/dopamint-text-logo-dark.png',
+        imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
         button: {
           title: `Join the Dapamint`,
           action: {
-            type: 'launch_miniapp',
+            type: 'launch_frame',
+            name: `Launch Dapamint`,
+            url: `https://test-remix-2.vercel.app`,
+            splashBackgroundColor: '#000000',
+          },
+        },
+      }),
+    },
+    {
+      tagName: 'meta',
+      property: 'fc:frame',
+      content: JSON.stringify({
+        version: 'next',
+        imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
+        button: {
+          title: `Join the Dapamint`,
+          action: {
+            type: 'launch_frame',
             name: `Launch Dapamint`,
             url: `https://test-remix-2.vercel.app`,
             splashBackgroundColor: '#000000',
