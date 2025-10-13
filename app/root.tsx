@@ -81,40 +81,40 @@ export const meta: MetaFunction = () => {
       content:
         'Dopamint, AI, NFT, Marketplace, Base, AncientX, Prompt NFTs, Liquid bonding curves',
     },
-    {
-      tagName: 'meta',
-      property: 'fc:miniapp',
-      content: JSON.stringify({
-        version: 'next',
-        imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
-        button: {
-          title: `Join the Dapamint`,
-          action: {
-            type: 'launch_frame',
-            name: `Launch Dapamint`,
-            url: `https://test-remix-2.vercel.app`,
-            splashBackgroundColor: '#000000',
-          },
-        },
-      }),
-    },
-    {
-      tagName: 'meta',
-      property: 'fc:frame',
-      content: JSON.stringify({
-        version: 'next',
-        imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
-        button: {
-          title: `Join the Dapamint`,
-          action: {
-            type: 'launch_frame',
-            name: `Launch Dapamint`,
-            url: `https://test-remix-2.vercel.app`,
-            splashBackgroundColor: '#000000',
-          },
-        },
-      }),
-    },
+    // {
+    //   tagName: 'meta',
+    //   property: 'fc:miniapp',
+    //   content: JSON.stringify({
+    //     version: 'next',
+    //     imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
+    //     button: {
+    //       title: `Join the Dapamint`,
+    //       action: {
+    //         type: 'launch_frame',
+    //         name: `Launch Dapamint`,
+    //         url: `https://test-remix-2.vercel.app`,
+    //         splashBackgroundColor: '#000000',
+    //       },
+    //     },
+    //   }),
+    // },
+    // {
+    //   tagName: 'meta',
+    //   property: 'fc:frame',
+    //   content: JSON.stringify({
+    //     version: 'next',
+    //     imageUrl: 'https://test-remix-2.vercel.app/32ratio.png',
+    //     button: {
+    //       title: `Join the Dapamint`,
+    //       action: {
+    //         type: 'launch_frame',
+    //         name: `Launch Dapamint`,
+    //         url: `https://test-remix-2.vercel.app`,
+    //         splashBackgroundColor: '#000000',
+    //       },
+    //     },
+    //   }),
+    // },
   ]
 }
 
