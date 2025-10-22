@@ -2,33 +2,46 @@ import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
 import { DownloadIcon } from 'lucide-react'
 
-export const downloadFile = async (url: string, filename?: string) => {
-  // Try Farcaster Miniapp SDK if available
-  if (typeof window !== 'undefined') {
+export const isBaseApp = () => {
+  if (typeof window === 'undefined') return false
+  // Check for Farcaster Miniapp SDK or Base app user agent
+  // You can adjust this check if you have a more reliable way
+  // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
+  if (
+    window.farcaster &&
+    window.farcaster.actions &&
+    window.farcaster.actions.downloadFile
+  )
+    return true
+  if (
+    navigator.userAgent.includes('BaseAndroid') ||
+    navigator.userAgent.includes('BaseiOS')
+  )
+    return true
+  return false
+}
+
+export const downloadFile = async (url: string, filename: string) => {
+  if (isBaseApp()) {
     // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
-    if (
-      window.farcaster &&
-      window.farcaster.actions &&
-      window.farcaster.actions.downloadFile
-    ) {
-      // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
-      window.farcaster.actions.downloadFile({ url, filename: filename || '' })
-      return
-    }
+    window.farcaster.actions.downloadFile({ url, filename })
+    return
   }
-  // Fallback: Browser method
-  try {
-    const a = document.createElement('a')
-    a.href = url
-    if (filename) a.download = filename
-    a.target = '_blank'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-  } catch (error) {
-    console.error('Failed to download file:', error)
-    window.location.href = url
+  // Browser logic (current)
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Network response was not ok: ${response.statusText}`)
   }
+  const blob = await response.blob()
+  const blobUrl = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.style.display = 'none'
+  a.href = blobUrl
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  window.URL.revokeObjectURL(blobUrl)
 }
 
 export default function Home() {
@@ -40,8 +53,7 @@ export default function Home() {
     })
 
   const handleDownloadWhitelistTemplate = (fileName: string) => {
-    const fileUrl = `/${fileName}`
-    downloadFile(fileUrl, fileName)
+    downloadFile(`/${fileName}`, fileName)
   }
 
   return (
