@@ -2,39 +2,39 @@ import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
 import { DownloadIcon } from 'lucide-react'
 
-export const downloadFile = async (url: string, filename: string) => {
-  const response = await fetch(url)
-  if (!response.ok) {
-    throw new Error(`Network response was not ok: ${response.statusText}`)
+export const downloadFile = async (url: string) => {
+  // For mobile webviews (like Base app), use window.open instead of blob URLs
+  // This prevents app crashes and works more reliably
+  try {
+    // Try to open the URL in a new window/tab
+    // In mobile webviews, this will trigger the native download behavior
+    window.open(url, '_blank')
+  } catch (error) {
+    console.error('Failed to download file:', error)
+    // Fallback: try direct navigation
+    window.location.href = url
   }
-  const blob = await response.blob()
-  const blobUrl = window.URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.style.display = 'none' // Ẩn thẻ a đi cho đẹp
-  a.href = blobUrl
-  a.download = filename
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  window.URL.revokeObjectURL(blobUrl)
 }
 
 export default function Home() {
   const { mutateAsync: handleDownloadImage, isPending: downloading } =
     useMutation({
       mutationFn: async (url: string) => {
-        await downloadFile(url, '_' + crypto.randomUUID())
+        await downloadFile(url)
       },
     })
 
-  const handleDownloadWhitelistTemplate = (
-    fileName: string,
-    displayName = fileName,
-  ) => {
-    const link = document.createElement('a')
-    link.href = `/${fileName}` // File path relative to public folder
-    link.download = displayName // Name for downloaded file
-    link.click()
+  const handleDownloadWhitelistTemplate = (fileName: string) => {
+    // For mobile webviews, use window.open to trigger native download
+    // instead of programmatic link clicks
+    const fileUrl = `/${fileName}`
+    try {
+      window.open(fileUrl, '_blank')
+    } catch (error) {
+      console.error('Failed to open file:', error)
+      // Fallback: try direct navigation
+      window.location.href = fileUrl
+    }
   }
 
   return (
