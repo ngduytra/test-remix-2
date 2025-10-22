@@ -1,6 +1,6 @@
 import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
-import { DownloadIcon } from 'lucide-react'
+import { DownloadIcon, ShareIcon } from 'lucide-react'
 
 export async function downloadFile(url: string, filename: string) {
   if (typeof window === 'undefined') return // SSR guard
@@ -18,6 +18,15 @@ export async function downloadFile(url: string, filename: string) {
   a.click()
   document.body.removeChild(a)
   window.URL.revokeObjectURL(blobUrl)
+}
+
+export const getShareUrl = (content: string, social: string) => {
+  switch (social) {
+    case 'twitter':
+      return 'https://twitter.com/intent/tweet?text=' + content
+    default:
+      return ''
+  }
 }
 
 export default function Home() {
@@ -57,6 +66,15 @@ export default function Home() {
         await downloadFile(url, '_' + crypto.randomUUID())
       },
     })
+
+  const handleShare = () => {
+    const shareUrl = getShareUrl(
+      window.origin + '/collections/' + contractAddress,
+      'twitter',
+    )
+
+    window.open(shareUrl, '_blank')
+  }
 
   const handleDownloadWhitelistTemplate = async (
     fileName: string,
@@ -120,6 +138,14 @@ export default function Home() {
       >
         <DownloadIcon />
         Download template
+      </Button>
+
+      <Button
+        className="h-10 w-[60px] px-5 border border-light/[0.12] rounded-full text-white bg-transparent hover:bg-[#282828b3] transition"
+        onClick={() => handleShare()}
+      >
+        she
+        <ShareIcon className="text-neutral-25" />
       </Button>
     </div>
   )
