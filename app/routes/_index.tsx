@@ -24,14 +24,14 @@ export default function Home() {
   const { mutateAsync: handleDownloadImage, isPending: downloading } =
     useMutation({
       mutationFn: async (url: string) => {
-        const isInMiniapp = await sdk.isInMiniApp()
-        console.log('thong tin ')
-        if (isInMiniapp) {
-          await sdk.actions.openUrl({
-            url,
-          })
-          return
-        }
+        // const isInMiniapp = await sdk.isInMiniApp()
+        // console.log('thong tin ')
+        // if (isInMiniapp) {
+        //   await sdk.actions.openUrl({
+        //     url,
+        //   })
+        //   return
+        // }
 
         await downloadFile(url, '_' + crypto.randomUUID())
       },
@@ -41,13 +41,13 @@ export default function Home() {
     fileName: string,
     displayName = fileName,
   ) => {
-    const isInMiniapp = await sdk.isInMiniApp()
-    if (isInMiniapp) {
-      await sdk.actions.openUrl({
-        url: `/${fileName}`,
-      })
-      return
-    }
+    // const isInMiniapp = await sdk.isInMiniApp()
+    // if (isInMiniapp) {
+    //   await sdk.actions.openUrl({
+    //     url: `/${fileName}`,
+    //   })
+    //   return
+    // }
     const link = document.createElement('a')
     link.href = `/${fileName}` // File path relative to public folder
     link.download = displayName // Name for downloaded file
