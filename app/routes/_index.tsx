@@ -1,9 +1,9 @@
 import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
 import { DownloadIcon } from 'lucide-react'
-import { sdk } from '@farcaster/miniapp-sdk'
 
-export const downloadFile = async (url: string, filename: string) => {
+export async function downloadFile(url: string, filename: string) {
+  if (typeof window === 'undefined') return // SSR guard
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Network response was not ok: ${response.statusText}`)
@@ -11,7 +11,7 @@ export const downloadFile = async (url: string, filename: string) => {
   const blob = await response.blob()
   const blobUrl = window.URL.createObjectURL(blob)
   const a = document.createElement('a')
-  a.style.display = 'none' // Ẩn thẻ a đi cho đẹp
+  a.style.display = 'none'
   a.href = blobUrl
   a.download = filename
   document.body.appendChild(a)
@@ -24,16 +24,24 @@ export default function Home() {
   const { mutateAsync: handleDownloadImage, isPending: downloading } =
     useMutation({
       mutationFn: async (url: string) => {
+        if (typeof window === 'undefined') return // SSR guard
         let isInMiniapp = false
+        let sdk: any = undefined
         try {
+          sdk = (await import('@farcaster/miniapp-sdk')).sdk
           isInMiniapp =
-            typeof sdk !== 'undefined' && typeof sdk.isInMiniApp === 'function'
+            typeof sdk?.isInMiniApp === 'function'
               ? await sdk.isInMiniApp()
               : false
         } catch (e) {
           isInMiniapp = false
         }
-        if (isInMiniapp) {
+        if (
+          isInMiniapp &&
+          sdk &&
+          sdk.actions &&
+          typeof sdk.actions.openUrl === 'function'
+        ) {
           try {
             await sdk.actions.openUrl({ url })
             return
@@ -49,16 +57,22 @@ export default function Home() {
     fileName: string,
     displayName = fileName,
   ) => {
+    if (typeof window === 'undefined') return // SSR guard
     let isInMiniapp = false
+    let sdk: any = undefined
     try {
+      sdk = (await import('@farcaster/miniapp-sdk')).sdk
       isInMiniapp =
-        typeof sdk !== 'undefined' && typeof sdk.isInMiniApp === 'function'
-          ? await sdk.isInMiniApp()
-          : false
+        typeof sdk?.isInMiniApp === 'function' ? await sdk.isInMiniApp() : false
     } catch (e) {
       isInMiniapp = false
     }
-    if (isInMiniapp) {
+    if (
+      isInMiniapp &&
+      sdk &&
+      sdk.actions &&
+      typeof sdk.actions.openUrl === 'function'
+    ) {
       try {
         await sdk.actions.openUrl({ url: `/${fileName}` })
         return
@@ -67,8 +81,8 @@ export default function Home() {
       }
     }
     const link = document.createElement('a')
-    link.href = `/${fileName}` // File path relative to public folder
-    link.download = displayName // Name for downloaded file
+    link.href = `/${fileName}`
+    link.download = displayName
     link.click()
   }
 
