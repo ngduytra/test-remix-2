@@ -4,13 +4,6 @@ import { DownloadIcon } from 'lucide-react'
 import { sdk } from '@farcaster/miniapp-sdk'
 
 export const downloadFile = async (url: string, filename: string) => {
-  const isInMiniapp = await sdk.isInMiniApp()
-  if (isInMiniapp) {
-    await sdk.actions.openUrl({
-      url,
-    })
-    return
-  }
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Network response was not ok: ${response.statusText}`)
@@ -31,6 +24,15 @@ export default function Home() {
   const { mutateAsync: handleDownloadImage, isPending: downloading } =
     useMutation({
       mutationFn: async (url: string) => {
+        const isInMiniapp = await sdk.isInMiniApp()
+        console.log('thong tin ')
+        if (isInMiniapp) {
+          await sdk.actions.openUrl({
+            url,
+          })
+          return
+        }
+
         await downloadFile(url, '_' + crypto.randomUUID())
       },
     })
