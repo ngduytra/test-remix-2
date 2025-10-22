@@ -67,8 +67,31 @@ export default function Home() {
       },
     })
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const shareUrl = getShareUrl(window.origin + '/collections/', 'twitter')
+    if (typeof window === 'undefined') return // SSR guard
+    let isInMiniapp = false
+    let sdk: any = undefined
+    try {
+      sdk = (await import('@farcaster/miniapp-sdk')).sdk
+      isInMiniapp =
+        typeof sdk?.isInMiniApp === 'function' ? await sdk.isInMiniApp() : false
+    } catch (e) {
+      isInMiniapp = false
+    }
+    if (
+      isInMiniapp &&
+      sdk &&
+      sdk.actions &&
+      typeof sdk.actions.openUrl === 'function'
+    ) {
+      try {
+        sdk.actions.openUrl({ url: shareUrl })
+        return
+      } catch {
+        // Fallback to download if openUrl fails
+      }
+    }
 
     window.open(shareUrl, '_blank')
   }
