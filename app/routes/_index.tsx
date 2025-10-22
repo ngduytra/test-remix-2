@@ -1,33 +1,16 @@
 import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
 import { DownloadIcon } from 'lucide-react'
-
-export const isBaseApp = () => {
-  if (typeof window === 'undefined') return false
-  // Check for Farcaster Miniapp SDK or Base app user agent
-  // You can adjust this check if you have a more reliable way
-  // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
-  if (
-    window.farcaster &&
-    window.farcaster.actions &&
-    window.farcaster.actions.downloadFile
-  )
-    return true
-  if (
-    navigator.userAgent.includes('BaseAndroid') ||
-    navigator.userAgent.includes('BaseiOS')
-  )
-    return true
-  return false
-}
+import { sdk } from '@farcaster/miniapp-sdk'
 
 export const downloadFile = async (url: string, filename: string) => {
-  if (isBaseApp()) {
-    // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
-    window.farcaster.actions.downloadFile({ url, filename })
+  const isInMiniapp = await sdk.isInMiniApp()
+  if (isInMiniapp) {
+    await sdk.actions.openUrl({
+      url,
+    })
     return
   }
-  // Browser logic (current)
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Network response was not ok: ${response.statusText}`)
@@ -35,7 +18,7 @@ export const downloadFile = async (url: string, filename: string) => {
   const blob = await response.blob()
   const blobUrl = window.URL.createObjectURL(blob)
   const a = document.createElement('a')
-  a.style.display = 'none'
+  a.style.display = 'none' // Ẩn thẻ a đi cho đẹp
   a.href = blobUrl
   a.download = filename
   document.body.appendChild(a)
@@ -52,8 +35,21 @@ export default function Home() {
       },
     })
 
-  const handleDownloadWhitelistTemplate = (fileName: string) => {
-    downloadFile(`/${fileName}`, fileName)
+  const handleDownloadWhitelistTemplate = async (
+    fileName: string,
+    displayName = fileName,
+  ) => {
+    const isInMiniapp = await sdk.isInMiniApp()
+    if (isInMiniapp) {
+      await sdk.actions.openUrl({
+        url: `/${fileName}`,
+      })
+      return
+    }
+    const link = document.createElement('a')
+    link.href = `/${fileName}` // File path relative to public folder
+    link.download = displayName // Name for downloaded file
+    link.click()
   }
 
   return (
