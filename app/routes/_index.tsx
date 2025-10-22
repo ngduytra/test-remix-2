@@ -24,15 +24,23 @@ export default function Home() {
   const { mutateAsync: handleDownloadImage, isPending: downloading } =
     useMutation({
       mutationFn: async (url: string) => {
-        // const isInMiniapp = await sdk.isInMiniApp()
-        // console.log('thong tin ')
-        // if (isInMiniapp) {
-        //   await sdk.actions.openUrl({
-        //     url,
-        //   })
-        //   return
-        // }
-
+        let isInMiniapp = false
+        try {
+          isInMiniapp =
+            typeof sdk !== 'undefined' && typeof sdk.isInMiniApp === 'function'
+              ? await sdk.isInMiniApp()
+              : false
+        } catch (e) {
+          isInMiniapp = false
+        }
+        if (isInMiniapp) {
+          try {
+            await sdk.actions.openUrl({ url })
+            return
+          } catch {
+            // Fallback to download if openUrl fails
+          }
+        }
         await downloadFile(url, '_' + crypto.randomUUID())
       },
     })
@@ -41,13 +49,23 @@ export default function Home() {
     fileName: string,
     displayName = fileName,
   ) => {
-    // const isInMiniapp = await sdk.isInMiniApp()
-    // if (isInMiniapp) {
-    //   await sdk.actions.openUrl({
-    //     url: `/${fileName}`,
-    //   })
-    //   return
-    // }
+    let isInMiniapp = false
+    try {
+      isInMiniapp =
+        typeof sdk !== 'undefined' && typeof sdk.isInMiniApp === 'function'
+          ? await sdk.isInMiniApp()
+          : false
+    } catch (e) {
+      isInMiniapp = false
+    }
+    if (isInMiniapp) {
+      try {
+        await sdk.actions.openUrl({ url: `/${fileName}` })
+        return
+      } catch {
+        // Fallback to download if openUrl fails
+      }
+    }
     const link = document.createElement('a')
     link.href = `/${fileName}` // File path relative to public folder
     link.download = displayName // Name for downloaded file
