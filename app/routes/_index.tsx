@@ -1,3 +1,15 @@
+// General async function to check if running in Farcaster Miniapp
+export async function isInMiniapp(): Promise<boolean> {
+  if (typeof window === 'undefined') return false
+  try {
+    const sdk = (await import('@farcaster/miniapp-sdk')).sdk
+    return typeof sdk?.isInMiniApp === 'function'
+      ? await sdk.isInMiniApp()
+      : false
+  } catch {
+    return false
+  }
+}
 import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
 import { DownloadIcon, ShareIcon } from 'lucide-react'
@@ -34,31 +46,23 @@ export default function Home() {
     useMutation({
       mutationFn: async (url: string) => {
         if (typeof window === 'undefined') return // SSR guard
-        let isInMiniapp = false
+        const miniapp = await isInMiniapp()
         let sdk: any = undefined
-        try {
-          sdk = (await import('@farcaster/miniapp-sdk')).sdk
-          isInMiniapp =
-            typeof sdk?.isInMiniApp === 'function'
-              ? await sdk.isInMiniApp()
-              : false
-        } catch (e) {
-          isInMiniapp = false
-        }
-        if (
-          isInMiniapp &&
-          sdk &&
-          sdk.actions &&
-          typeof sdk.actions.openUrl === 'function'
-        ) {
+        if (miniapp) {
           try {
-            // Format the URL to be absolute if it's not already
-            let downloadUrl = url
-            if (typeof window !== 'undefined' && url.startsWith('/')) {
-              downloadUrl = window.location.origin + url
+            sdk = (await import('@farcaster/miniapp-sdk')).sdk
+            if (
+              sdk &&
+              sdk.actions &&
+              typeof sdk.actions.openUrl === 'function'
+            ) {
+              let downloadUrl = url
+              if (typeof window !== 'undefined' && url.startsWith('/')) {
+                downloadUrl = window.location.origin + url
+              }
+              await sdk.actions.openUrl({ url: downloadUrl })
+              return
             }
-            await sdk.actions.openUrl({ url: downloadUrl })
-            return
           } catch {
             // Fallback to download if openUrl fails
           }
@@ -70,29 +74,19 @@ export default function Home() {
   const handleShare = async () => {
     const shareUrl = getShareUrl(window.origin + '/collections/', 'twitter')
     if (typeof window === 'undefined') return // SSR guard
-    let isInMiniapp = false
+    const miniapp = await isInMiniapp()
     let sdk: any = undefined
-    try {
-      sdk = (await import('@farcaster/miniapp-sdk')).sdk
-      isInMiniapp =
-        typeof sdk?.isInMiniApp === 'function' ? await sdk.isInMiniApp() : false
-    } catch (e) {
-      isInMiniapp = false
-    }
-    if (
-      isInMiniapp &&
-      sdk &&
-      sdk.actions &&
-      typeof sdk.actions.openUrl === 'function'
-    ) {
+    if (miniapp) {
       try {
-        sdk.actions.openUrl({ url: shareUrl })
-        return
+        sdk = (await import('@farcaster/miniapp-sdk')).sdk
+        if (sdk && sdk.actions && typeof sdk.actions.openUrl === 'function') {
+          sdk.actions.openUrl({ url: shareUrl })
+          return
+        }
       } catch {
         // Fallback to download if openUrl fails
       }
     }
-
     window.open(shareUrl, '_blank')
   }
 
@@ -101,29 +95,19 @@ export default function Home() {
     displayName = fileName,
   ) => {
     if (typeof window === 'undefined') return // SSR guard
-    let isInMiniapp = false
+    const miniapp = await isInMiniapp()
     let sdk: any = undefined
-    try {
-      sdk = (await import('@farcaster/miniapp-sdk')).sdk
-      isInMiniapp =
-        typeof sdk?.isInMiniApp === 'function' ? await sdk.isInMiniApp() : false
-    } catch (e) {
-      isInMiniapp = false
-    }
-    if (
-      isInMiniapp &&
-      sdk &&
-      sdk.actions &&
-      typeof sdk.actions.openUrl === 'function'
-    ) {
+    if (miniapp) {
       try {
-        // Format the URL to be absolute if it's not already
-        let downloadUrl = `/${fileName}`
-        if (typeof window !== 'undefined' && downloadUrl.startsWith('/')) {
-          downloadUrl = window.location.origin + downloadUrl
+        sdk = (await import('@farcaster/miniapp-sdk')).sdk
+        if (sdk && sdk.actions && typeof sdk.actions.openUrl === 'function') {
+          let downloadUrl = `/${fileName}`
+          if (typeof window !== 'undefined' && downloadUrl.startsWith('/')) {
+            downloadUrl = window.location.origin + downloadUrl
+          }
+          await sdk.actions.openUrl({ url: downloadUrl })
+          return
         }
-        await sdk.actions.openUrl({ url: downloadUrl })
-        return
       } catch {
         // Fallback to download if openUrl fails
       }
