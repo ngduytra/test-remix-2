@@ -68,10 +68,7 @@ export default function Home() {
     })
 
   const handleShare = () => {
-    const shareUrl = getShareUrl(
-      window.origin + '/collections/' + contractAddress,
-      'twitter',
-    )
+    const shareUrl = getShareUrl(window.origin + '/collections/', 'twitter')
 
     window.open(shareUrl, '_blank')
   }
