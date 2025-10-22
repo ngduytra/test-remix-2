@@ -43,7 +43,12 @@ export default function Home() {
           typeof sdk.actions.openUrl === 'function'
         ) {
           try {
-            await sdk.actions.openUrl({ url })
+            // Format the URL to be absolute if it's not already
+            let downloadUrl = url
+            if (typeof window !== 'undefined' && url.startsWith('/')) {
+              downloadUrl = window.location.origin + url
+            }
+            await sdk.actions.openUrl({ url: downloadUrl })
             return
           } catch {
             // Fallback to download if openUrl fails
@@ -74,7 +79,12 @@ export default function Home() {
       typeof sdk.actions.openUrl === 'function'
     ) {
       try {
-        await sdk.actions.openUrl({ url: `/${fileName}` })
+        // Format the URL to be absolute if it's not already
+        let downloadUrl = `/${fileName}`
+        if (typeof window !== 'undefined' && downloadUrl.startsWith('/')) {
+          downloadUrl = window.location.origin + downloadUrl
+        }
+        await sdk.actions.openUrl({ url: downloadUrl })
         return
       } catch {
         // Fallback to download if openUrl fails
