@@ -2,16 +2,31 @@ import Button from '@/components/button'
 import { useMutation } from '@tanstack/react-query'
 import { DownloadIcon } from 'lucide-react'
 
-export const downloadFile = async (url: string) => {
-  // For mobile webviews (like Base app), use window.open instead of blob URLs
-  // This prevents app crashes and works more reliably
+export const downloadFile = async (url: string, filename?: string) => {
+  // Try Farcaster Miniapp SDK if available
+  if (typeof window !== 'undefined') {
+    // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
+    if (
+      window.farcaster &&
+      window.farcaster.actions &&
+      window.farcaster.actions.downloadFile
+    ) {
+      // @ts-expect-error: Farcaster Miniapp SDK types are not available on window
+      window.farcaster.actions.downloadFile({ url, filename: filename || '' })
+      return
+    }
+  }
+  // Fallback: Browser method
   try {
-    // Try to open the URL in a new window/tab
-    // In mobile webviews, this will trigger the native download behavior
-    window.open(url, '_blank')
+    const a = document.createElement('a')
+    a.href = url
+    if (filename) a.download = filename
+    a.target = '_blank'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
   } catch (error) {
     console.error('Failed to download file:', error)
-    // Fallback: try direct navigation
     window.location.href = url
   }
 }
@@ -20,21 +35,13 @@ export default function Home() {
   const { mutateAsync: handleDownloadImage, isPending: downloading } =
     useMutation({
       mutationFn: async (url: string) => {
-        await downloadFile(url)
+        await downloadFile(url, '_' + crypto.randomUUID())
       },
     })
 
   const handleDownloadWhitelistTemplate = (fileName: string) => {
-    // For mobile webviews, use window.open to trigger native download
-    // instead of programmatic link clicks
     const fileUrl = `/${fileName}`
-    try {
-      window.open(fileUrl, '_blank')
-    } catch (error) {
-      console.error('Failed to open file:', error)
-      // Fallback: try direct navigation
-      window.location.href = fileUrl
-    }
+    downloadFile(fileUrl, fileName)
   }
 
   return (
