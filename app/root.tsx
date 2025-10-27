@@ -35,6 +35,38 @@ export const links: LinksFunction = () => [
 ]
 
 export const meta: MetaFunction = () => {
+  const baseMetadataContent =
+    import.meta.env.VITE_ENV === 'production'
+      ? {
+          version: 'next',
+          imageUrl: 'https://dev.dopamint.ai/images/dopamint-white.png',
+          button: {
+            title: `Monetize your prompts akaksksks`,
+            action: {
+              type: 'launch_frame',
+              name: `Monetize your promptsksnssn`,
+              url: `https://dev.dopamint.ai`,
+              splashImageUrl:
+                'https://dev.dopamint.ai/images/dopamint-white.png',
+              splashBackgroundColor: '#ffffff',
+            },
+          },
+        }
+      : {
+          version: 'next',
+          imageUrl: 'https://dev.dopamint.ai/images/dopamint-white.png',
+          button: {
+            title: `Monetize your promptssksksk`,
+            action: {
+              type: 'launch_frame',
+              name: `Monetize your prompts kak`,
+              url: `https://dev.dopamint.ai`,
+              splashImageUrl:
+                'https://dev.dopamint.ai/images/dopamint-white.png',
+              splashBackgroundColor: '#000000',
+            },
+          },
+        }
   return [
     { title: 'Dopamint | The 1st AI ' },
     {
@@ -84,19 +116,7 @@ export const meta: MetaFunction = () => {
     {
       tagName: 'meta',
       property: 'fc:miniapp',
-      content: JSON.stringify({
-        version: 'next',
-        imageUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
-        button: {
-          title: `Join the Dapamint`,
-          action: {
-            type: 'launch_frame',
-            name: `Launch Dapamint`,
-            url: `https://test-remix-2.vercel.app`,
-            splashBackgroundColor: '#000000',
-          },
-        },
-      }),
+      content: JSON.stringify(baseMetadataContent),
     },
     // {
     //   tagName: 'meta',
