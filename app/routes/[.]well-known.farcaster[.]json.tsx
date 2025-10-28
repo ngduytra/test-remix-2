@@ -23,7 +23,8 @@ export const loader = async () => {
       imageUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
       buttonTitle: '🚀 Launch',
       iconUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
-      splashImageUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
+      splashImageUrl:
+        'https://test-remix-2.vercel.app/images/test-gif-loading.gif',
       splashBackgroundColor: '#000000',
 
       subtitle: 'Your AI Companion',
