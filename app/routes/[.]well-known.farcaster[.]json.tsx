@@ -62,8 +62,9 @@ export const loader = async () => {
       imageUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
       buttonTitle: '🚀 Launch',
       iconUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
-      splashImageUrl: 'https://test-remix-2.vercel.app/images/32ratio.png',
-      splashBackgroundColor: '#000000',
+      splashImageUrl:
+        'https://test-remix-2.vercel.app/images/test-gif-loading.gif',
+      splashBackgroundColor: '#ffffff',
 
       subtitle: 'Your AI Companion',
       description: 'Dopamint is an AI-powered pto improve your mental health.',
